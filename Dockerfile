@@ -7,8 +7,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["APIDocker/APIDocker.csproj", "APIDocker/"]
-RUN dotnet restore "APIDocker/APIDocker.csproj"
+RUN mkdir APIDocker
+COPY APIDocker.csproj .
+RUN dotnet restore
 COPY . .
 WORKDIR "/src/APIDocker"
 RUN dotnet build "APIDocker.csproj" -c Release -o /app/build
